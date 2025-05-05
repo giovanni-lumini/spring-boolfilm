@@ -12,8 +12,12 @@
     <th:block th:replace="~{fragments/fragments :: header}"/>
 
     <main class="container m-auto" style="overflow-y: auto;">
-        <!-- importo il frammento button -->
-        <div th:insert="~{fragments/fragments :: button('/film/create', 'Add a new film')}" class="text-center"></div>
+
+        <div class="border border-tertiary rounded shadow p-3 bg-body-tertiary rounded d-flex justify-content-between p-3 mb-3 m-auto" style="width: 50%;">
+            <h3>Add a new film!</h3>
+            <!-- importo il frammento button -->
+            <div th:insert="~{fragments/fragments :: button('/film/create', 'Add')}" class="text-center"></div>
+        </div>
         
         <!-- if film exist -->
         <div class="row d-flex justify-content-start" th:if="${film.size()>0}">
@@ -22,11 +26,17 @@
                 <div class="card mt-5" style="width: 15rem;">
                     <img th:src="*{image}" class="card-img-top" alt="..." style="height: 22rem; object-fit: cover;">
                     <div class="card-body">
-                      <h4 class="card-title" th:text="*{title}"></h4>
-                      <p th:text="*{description}" style="height: 5rem;"></p>
-                      <a th:href="@{/film/{id}(id=*{id})}" class="btn btn-primary">More details</a>
-                      <!-- edit -->
-                      <a th:href="@{/film/edit/{id}(id=*{id})}" class="btn btn-warning">Edit</a>
+                        <h5 class="card-title" th:text="*{title}"></h5>
+                        <p th:text="*{description}" style="height: 5rem;"></p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a th:href="@{/film/{id}(id=*{id})}" class="btn btn-sm btn-primary">Details</a>
+                            <!-- edit -->
+                            <a th:href="@{/film/edit/{id}(id=*{id})}" class="btn btn-sm btn-warning">Edit</a>
+                            <!-- delete -->
+                            <form th:action="@{/film/delete/{id}(id=*{id})}" method="post">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

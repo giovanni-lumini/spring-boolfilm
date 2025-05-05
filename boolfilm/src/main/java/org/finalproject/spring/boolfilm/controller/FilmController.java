@@ -118,4 +118,20 @@ public class FilmController {
         return "redirect:/film";
     }
 
+    // DELETE
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Integer id) {
+
+        // find id
+        Optional<Film> optionalFilmToDelete = filmRepository.findById(id);
+
+        // if id is empty
+        if (optionalFilmToDelete.isEmpty()) {
+            return "film/filmNotFound";
+        }
+
+        filmRepository.delete(optionalFilmToDelete.get());
+
+        return "redirect:/film";
+    }
 }
