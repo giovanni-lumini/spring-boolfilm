@@ -1,10 +1,9 @@
 package org.finalproject.spring.boolfilm.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.finalproject.spring.boolfilm.model.Film;
-import org.finalproject.spring.boolfilm.repository.FilmRepository;
+import org.finalproject.spring.boolfilm.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,16 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/film")
 public class FilmController {
 
-    // REPOSITORY
+    // SERVICE
     @Autowired
-    private FilmRepository filmRepository;
+    private FilmService filmService;
 
     // METHODS
     // INDEX
@@ -34,7 +31,7 @@ public class FilmController {
     public String index(Model model) {
 
         // find all film
-        List<Film> film = filmRepository.findAll();
+        List<Film> film = filmService.findAll();
 
         model.addAttribute("film", film);
 
@@ -45,16 +42,9 @@ public class FilmController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
 
-        // find id
-        Optional<Film> optionalFilm = filmRepository.findById(id);
+        Film film = filmService.getById(id);
 
-        // if id is empty
-        if (optionalFilm.isEmpty()) {
-            return "film/filmNotFound";
-        }
-
-        // if id exists
-        model.addAttribute("film", optionalFilm.get());
+        model.addAttribute("film", film);
 
         return "film/show";
     }
@@ -78,7 +68,7 @@ public class FilmController {
         }
 
         // else, save
-        filmRepository.save(formFilm);
+        filmService.save(formFilm);
 
         return "redirect:/film";
     }
@@ -87,16 +77,9 @@ public class FilmController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model) {
 
-        // find id
-        Optional<Film> optionalFilm = filmRepository.findById(id);
+        Film film = filmService.getById(id);
 
-        // if id is empty
-        if (optionalFilm.isEmpty()) {
-            return "film/filmNotFound";
-        }
-
-        // if id exists
-        model.addAttribute("film", optionalFilm.get());
+        model.addAttribute("film", film);
 
         // edit=true, for the form
         model.addAttribute("edit", true);
@@ -113,7 +96,7 @@ public class FilmController {
         }
 
         // else, save
-        filmRepository.save(formFilm);
+        filmService.save(formFilm);
 
         return "redirect:/film";
     }
@@ -122,15 +105,7 @@ public class FilmController {
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") Integer id) {
 
-        // find id
-        Optional<Film> optionalFilmToDelete = filmRepository.findById(id);
-
-        // if id is empty
-        if (optionalFilmToDelete.isEmpty()) {
-            return "film/filmNotFound";
-        }
-
-        filmRepository.delete(optionalFilmToDelete.get());
+        filmService.deleteById(id);
 
         return "redirect:/film";
     }
