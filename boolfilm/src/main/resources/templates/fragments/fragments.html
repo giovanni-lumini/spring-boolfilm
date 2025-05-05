@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fragments</title>
+    <!-- styles fragment -->
+    <th:block th:fragment="style">
+        <!-- import webjars bootstrap -->
+        <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+    </th:block>
+    
+</head>
+<body>
+    <!-- header and navbar -->
+    <th:block th:fragment="header">
+        <header class="text-center bg-dark text-white p-3 d-flex justify-content-between mb-5" style="height: 10rem;">
+            <div class="d-flex align-items-center">
+                <!-- img in public folder -->
+                <img src="" style="width: 15rem;" th:src="@{/img/logoSpring.png}"/>
+            </div>
+            <!-- navbar for home, film, categories -->
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav ">
+                            <li class="nav-item">
+                                <a class="nav-link active text-white" aria-current="page" th:href="@{/}">HOME</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active text-white" th:href="@{/film}">FILM</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active text-white" th:href="@{/categories}">CATEGORIES</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </th:block>
+
+    <!-- title -->
+    <th:block >
+        <h1 th:fragment="title(pageTitle)" th:text="${pageTitle}" class="mb-5"></h1>
+    </th:block>
+
+    <!-- button -->
+    <a 
+        th:fragment="button(link, title)"
+        th:href=${link}
+        th:text=${title}
+        class="btn btn-primary"
+        >
+    </a>
+
+    <!-- footer -->
+    <th:block th:fragment="footer">
+        <footer class="bg-dark text-white p-3 mt-5 d-flex align-items-center justify-content-center" style="height: 5rem;">
+            <p class="p-0 m-0">&copy; 2025 BOOLFILM</p>
+        </footer>
+    </th:block>
+    
+</body>
+</html>

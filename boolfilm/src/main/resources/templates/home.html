@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- style fragment -->
+    <th:block th:replace="~{fragments/fragments :: style}"/>   
+</head>
+<body style="height: 100vh;">
+    <!-- header fragment-->
+    <th:block th:replace="~{fragments/fragments :: header}"/>
+
+    <main class="container m-auto" style="height: calc(100vh - 15rem);">
+        <!-- title fragment -->
+        <th:block th:replace="~{fragments/fragments :: title(pageTitle='Ciao io sono la homepage')}"/>
+
+        <!-- button fragment -->
+        <div th:insert="~{fragments/fragments :: button('/film', 'Vai alla pagina film')}"></div>
+    </main>
+
+    <!-- footer fragment-->
+    <th:block th:replace="~{fragments/fragments :: footer}"/>
+</body>
+</html>
