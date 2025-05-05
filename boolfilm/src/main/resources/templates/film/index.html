@@ -12,16 +12,21 @@
     <th:block th:replace="~{fragments/fragments :: header}"/>
 
     <main class="container m-auto" style="overflow-y: auto;">
+        <!-- importo il frammento button -->
+        <div th:insert="~{fragments/fragments :: button('/film/create', 'Add a new film')}" class="text-center"></div>
+        
         <!-- if film exist -->
         <div class="row d-flex justify-content-start" th:if="${film.size()>0}">
             <div class="col-3 text-center d-flex justify-content-center" th:each="film : ${film}" th:object="${film}">
                 <!-- card -->
-                <div class="card mb-5" style="width: 15rem;">
+                <div class="card mt-5" style="width: 15rem;">
                     <img th:src="*{image}" class="card-img-top" alt="..." style="height: 22rem; object-fit: cover;">
                     <div class="card-body">
                       <h4 class="card-title" th:text="*{title}"></h4>
                       <p th:text="*{description}" style="height: 5rem;"></p>
                       <a th:href="@{/film/{id}(id=*{id})}" class="btn btn-primary">More details</a>
+                      <!-- edit -->
+                      <a th:href="@{/film/edit/{id}(id=*{id})}" class="btn btn-warning">Edit</a>
                     </div>
                 </div>
             </div>

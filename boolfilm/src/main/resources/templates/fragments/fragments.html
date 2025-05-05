@@ -15,7 +15,9 @@
         <header class="text-center bg-dark text-white p-3 d-flex justify-content-between mb-5" style="height: 8rem; position: sticky; top: 0; z-index: 100;">
             <div class="d-flex align-items-center">
                 <!-- img in public folder -->
-                <img src="" style="width: 15rem;" th:src="@{/img/logoSpring.png}"/>
+                <a th:href="@{/}">
+                    <img src="" style="width: 15rem;" th:src="@{/img/logoSpring.png}"/>
+                </a>
             </div>
             <!-- navbar for home, film, categories -->
             <nav class="navbar navbar-expand-lg">
@@ -54,7 +56,7 @@
 
     <!-- footer -->
     <th:block th:fragment="footer">
-        <footer class="bg-dark text-white p-3 mt-5 d-flex align-items-center justify-content-center" style="height: 5rem; width: 100%; position:fixed; bottom: 0; z-index: 100;">
+        <footer class="bg-dark text-white p-3 mt-5 d-flex align-items-center justify-content-center" style="height: 5rem; width: 100%; position:sticky; bottom: 0; z-index: 100;">
             <p class="p-0 m-0">&copy; 2025 BOOLFILM</p>
         </footer>
     </th:block>

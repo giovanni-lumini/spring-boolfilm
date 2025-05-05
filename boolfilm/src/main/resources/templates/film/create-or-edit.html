@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create-or-Edit</title>
+    <!-- fragment styles -->
+    <th:block th:replace="~{fragments/fragments :: style}"/> 
+</head>
+<body>
+    <!-- fragment header -->
+    <th:block th:replace="~{fragments/fragments :: header}"/>
+
+    <main class="container m-auto">
+        <!-- FORM to creare or update a film -->
+        <form 
+            id="film-form"
+            th:action="${edit} ? @{'/film/edit/' + ${film.id}} : @{/film/create}"
+            th:object="${film}"
+            method="post">
+
+                <!-- film information -->
+                <input type="hidden" th:field="*{id}" id="filmId">
+
+                <!-- input + error -->
+                <!-- title -->
+                <div class="mb-3">
+                    <label class="form-label" for="title">Film title:</label>
+                    <input class="form-control" placeholder="Add here the title of the film" id="title" type="text" th:field="*{title}" th:errorClass="is-invalid">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">
+                        <ul>
+                            <li th:each="error : ${#fields.errors('title')}" th:text="${error}"></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- author -->
+                <div class="mb-3">
+                    <label class="form-label" for="author">Author:</label>
+                    <input class="form-control" placeholder="Add here the author of the film" id="author" type="text" th:field="*{author}" th:errorClass="is-invalid">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('author')}">
+                        <ul>
+                            <li th:each="error : ${#fields.errors('author')}" th:text="${error}"></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- publicationDate -->
+                <div class="mb-3">
+                    <label class="form-label" for="publicationDate">Data di pubblicazione:</label>
+                    <input class="form-control" id="publicationDate" type="date" th:field="*{publicationDate}" th:errorClass="is-invalid">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('publicationDate')}">
+                        <ul>
+                            <li th:each="error : ${#fields.errors('publicationDate')}" th:text="${error}"></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- description -->
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description:</label>
+                    <textarea class="form-control" placeholder="Add here the description of the film" id="description" th:field="*{description}" th:errorClass="is-invalid"></textarea>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
+                        <ul>
+                            <li th:each="error : ${#fields.errors('description')}" th:text="${error}"></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- image -->
+                <div class="mb-3">
+                    <label class="form-label" for="image">Image:</label>
+                    <textarea class="form-control" placeholder="Add here the url of the image of the film" id="image" th:field="*{image}" th:errorClass="is-invalid"></textarea>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('image')}">
+                        <ul>
+                            <li th:each="error : ${#fields.errors('image')}" th:text="${error}"></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- submit -->
+                <div class="mb-5 d-flex justify-content-between">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="submit" class="btn btn-warning" onclick="document.getElementById('film-form').reset();">Clear form</button>
+                </div>
+        </form>
+
+        <!-- importo il frammento button -->
+    <div th:insert="~{fragments/fragments :: button('/film', 'Go back to the film page')}"></div>
+    </main>
+
+    
+</body>
+</html>
