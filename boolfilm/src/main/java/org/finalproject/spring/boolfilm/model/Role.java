@@ -1,40 +1,37 @@
 package org.finalproject.spring.boolfilm.model;
 
-import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "roles")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Category {
+public class Role {
 
     // VARIABLES
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "title mustn't be null, empty or blank")
+    @NotBlank(message = "name can't be blank, null or empty")
     private String name;
 
-    @Lob
-    private String description;
-
     // MANY TO MANY
-    @ManyToMany(mappedBy = "categories")
-    private List<Film> film;
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    private Set<User> users;
 
-    // GETTERS E SETTERS
+    // GETTERS AND SETTERS
     public Integer getId() {
         return this.id;
     }
@@ -51,30 +48,11 @@ public class Category {
         this.name = name;
     }
 
-    public String getDescription() {
-        return this.description;
+    public Set<User> getUsers() {
+        return this.users;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
-
-    public List<Film> getFilm() {
-        return this.film;
-    }
-
-    public void setFilm(List<Film> film) {
-        this.film = film;
-    }
-
-    // TO STRING
-    @Override
-    public String toString() {
-        return "{" +
-                " id='" + getId() + "'" +
-                ", name='" + getName() + "'" +
-                ", description='" + getDescription() + "'" +
-                "}";
-    }
-
 }

@@ -48,7 +48,7 @@ public class Film {
     @JoinTable(name = "category_film", joinColumns = @JoinColumn(name = "film_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories;
 
-    // GETTER AND SETTER
+    // GETTERS AND SETTERS
     public Integer getId() {
         return this.id;
     }
