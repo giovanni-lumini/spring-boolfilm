@@ -12,6 +12,8 @@
     <th:block th:replace="~{fragments/fragments :: header}"/>
 
     <main class="container m-auto">
+        <h2 th:text="${edit} ? 'Edit Film: ' + ${film.title} : 'Create New Film'" class="mb-3"></h2>
+
         <!-- FORM to creare or update a film -->
         <form 
             id="film-form"
