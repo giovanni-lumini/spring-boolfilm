@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show</title>
+    <!-- style fragment -->
+    <th:block th:replace="~{fragments/fragments :: style}"/> 
+</head>
+<body>
+    <!-- header fragment-->
+    <th:block th:replace="~{fragments/fragments :: header}"/>
+
+    <main class="container m-auto" style="overflow-y: auto; height: calc(100vh - 15rem);">
+        
+        <h2>Category: [[${category.name}]]</h2>
+
+        <!-- table -->
+        <section class="row mt-4">
+            <div class="col-8">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Number of film</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="category : ${category}" th:object="${category}">
+                            <td>[[*{id}]]</td>
+                            <td>[[*{name}]]</td>
+                            <td>[[*{description}]]</td>
+                            <td>[[*{film.size()}]]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- footer fragment-->
+    <th:block th:replace="~{fragments/fragments :: footer}"/>
+</body>
+</html>

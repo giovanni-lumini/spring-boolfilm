@@ -20,15 +20,13 @@
         </div>
 
         <!-- table -->
-        <section class="row mt-5">
-            <div class="col-12">
+        <section class="row mt-5 d-flex justify-content-center">
+            <div class="col-6">
                 <!-- if categories exist -->
                 <table class="table" th:if="${categories.size() > 0}">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Description</th>
+                            <th>Category name</th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -36,19 +34,17 @@
                     </thead>
                     <tbody>
                         <tr th:each="category : ${categories}" th:object="${category}">
-                            <td>[[*{id}]]</td>
                             <td>[[*{name}]]</td>
-                            <td>[[*{description}]]</td>
                             <!-- show -->
-                            <td>
+                            <td class="text-center">
                                 <a th:href="@{'/categories/' + *{id}}" class="btn btn-primary btn-sm">Show</a>
                             </td>
                             <!-- update -->
-                            <td>
+                            <td class="text-center">
                                 <a th:href="@{'/categories/edit/' + *{id}}" class="btn btn-warning btn-sm">Edit</a>
                             </td>
                             <!-- delete -->
-                            <td>
+                            <td class="text-center">
                                 <form th:action="@{'/categories/delete/' + *{id}}" method="post">
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                 </form>
