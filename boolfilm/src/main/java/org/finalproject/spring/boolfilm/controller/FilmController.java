@@ -30,7 +30,6 @@ public class FilmController {
     @GetMapping
     public String index(Model model) {
 
-        // find all film
         List<Film> film = filmService.findAll();
 
         model.addAttribute("film", film);

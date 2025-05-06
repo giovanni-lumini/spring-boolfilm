@@ -1,12 +1,10 @@
 package org.finalproject.spring.boolfilm.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.finalproject.spring.boolfilm.model.Category;
-import org.finalproject.spring.boolfilm.repository.CategoryRepository;
+import org.finalproject.spring.boolfilm.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.validation.Valid;
 
@@ -24,17 +21,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/categories")
 public class CategoryController {
 
-    // REPOSITORY
+    // SERVICE
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
     // METHODS
     // INDEX
     @GetMapping
     public String index(Model model) {
 
-        // find all film
-        List<Category> category = categoryRepository.findAll();
+        List<Category> category = categoryService.findAll();
 
         model.addAttribute("categories", category);
 
@@ -45,16 +41,9 @@ public class CategoryController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
 
-        // find id
-        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        Category category = categoryService.getById(id);
 
-        // if category doesn't exist, exeption 404
-        if (categoryOptional.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
-        }
-
-        // else
-        model.addAttribute("category", categoryOptional.get());
+        model.addAttribute("category", category);
 
         return "category/show";
     }
@@ -80,7 +69,7 @@ public class CategoryController {
         }
 
         // else, save
-        categoryRepository.save(formCategory);
+        categoryService.save(formCategory);
 
         return "redirect:/categories";
     }
@@ -89,16 +78,9 @@ public class CategoryController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model) {
 
-        // find id
-        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        Category category = categoryService.getById(id);
 
-        // if category doesn't exist, exeption 404
-        if (categoryOptional.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
-        }
-
-        // else
-        model.addAttribute("category", categoryOptional.get());
+        model.addAttribute("category", category);
 
         // edit=true, for the form
         model.addAttribute("edit", true);
@@ -115,7 +97,7 @@ public class CategoryController {
         }
 
         // else, save
-        categoryRepository.save(formCategory);
+        categoryService.save(formCategory);
 
         return "redirect:/categories";
     }
@@ -124,15 +106,7 @@ public class CategoryController {
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") Integer id) {
 
-        // find id
-        Optional<Category> categoryOptional = categoryRepository.findById(id);
-
-        // if category doesn't exist, exeption 404
-        if (categoryOptional.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
-        }
-
-        categoryRepository.delete(categoryOptional.get());
+        categoryService.deleteById(id);
 
         return "redirect:/categories";
     }
