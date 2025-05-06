@@ -7,15 +7,15 @@
     <!-- style fragment -->
     <th:block th:replace="~{fragments/fragments :: style}"/> 
 </head>
-<body style="height: 100vh;">
+<body>
     <!-- header fragment-->
     <th:block th:replace="~{fragments/fragments :: header}"/>
 
     <main class="container m-auto" style="overflow-y: auto;">
-
+        <!-- create -->
         <div class="border border-tertiary rounded shadow p-3 bg-body-tertiary rounded d-flex justify-content-between p-3 mb-3 m-auto" style="width: 50%;">
             <h3>Add a new film!</h3>
-            <!-- importo il frammento button -->
+            <!-- button fragment -->
             <div th:insert="~{fragments/fragments :: button('/film/create', 'Add')}" class="text-center"></div>
         </div>
         
@@ -29,8 +29,9 @@
                         <h5 class="card-title" th:text="*{title}"></h5>
                         <p th:text="*{description}" style="height: 5rem;"></p>
                         <div class="d-flex justify-content-center gap-3">
+                            <!-- show -->
                             <a th:href="@{/film/{id}(id=*{id})}" class="btn btn-sm btn-primary">Details</a>
-                            <!-- edit -->
+                            <!-- update -->
                             <a th:href="@{/film/edit/{id}(id=*{id})}" class="btn btn-sm btn-warning">Edit</a>
                             <!-- delete -->
                             <form th:action="@{/film/delete/{id}(id=*{id})}" method="post">
@@ -43,7 +44,7 @@
         </div>
 
         <!-- if film doesn't exist -->
-        <div th:unless="${film.size()>0}" th:text="Non ci sono film"></div>
+        <div th:unless="${film.size()>0}" th:text="There aren't film"></div>
     </main>
 
     <!-- footer fragment-->

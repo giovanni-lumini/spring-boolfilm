@@ -1,7 +1,6 @@
 package org.finalproject.spring.boolfilm.repository;
 
-import java.util.Locale.Category;
-
+import org.finalproject.spring.boolfilm.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {

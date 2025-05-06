@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <!-- style fragment -->
+    <th:block th:replace="~{fragments/fragments :: style}"/> 
+</head>
+<body>
+    <!-- header fragment-->
+    <th:block th:replace="~{fragments/fragments :: header}"/>
+
+    <main class="container m-auto" style="overflow-y: auto;">
+        <!-- create -->
+        <div class="border border-tertiary rounded shadow p-3 bg-body-tertiary rounded d-flex justify-content-between p-3 mb-3 m-auto" style="width: 50%;">
+            <h3>Add a new category!</h3>
+            <!-- button fragment --> 
+            <div th:insert="~{fragments/fragments :: button('/category/create', 'Add')}" class="text-center"></div>
+        </div>
+
+        <!-- table -->
+        <section class="row mt-5">
+            <div class="col-12">
+                <!-- if categories exist -->
+                <table class="table" th:if="${categories.size() > 0}">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="category : ${categories}" th:object="${category}">
+                            <td>[[*{id}]]</td>
+                            <td>[[*{name}]]</td>
+                            <td>[[*{description}]]</td>
+                            <!-- show -->
+                            <td>
+                                <a th:href="@{'/categories/' + *{id}}" class="btn btn-primary btn-sm">Show</a>
+                            </td>
+                            <!-- update -->
+                            <td>
+                                <a th:href="@{'/categories/edit/' + *{id}}" class="btn btn-warning btn-sm">Edit</a>
+                            </td>
+                            <!-- delete -->
+                            <td>
+                                <form th:action="@{'/categories/delete/' + *{id}}" method="post">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- if categories don't exist -->
+                <p th:text="'No categories are available at the moment'" th:unless="${categories.size()>0}"></p>
+            </div>
+        </section>
+    </main>
+
+    <!-- footer fragment-->
+    <th:block th:replace="~{fragments/fragments :: footer}"/>
+</body>
+</html>
