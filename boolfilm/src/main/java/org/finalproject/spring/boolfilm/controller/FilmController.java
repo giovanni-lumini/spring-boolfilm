@@ -3,6 +3,7 @@ package org.finalproject.spring.boolfilm.controller;
 import java.util.List;
 
 import org.finalproject.spring.boolfilm.model.Film;
+import org.finalproject.spring.boolfilm.repository.CategoryRepository;
 import org.finalproject.spring.boolfilm.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,10 @@ public class FilmController {
     // SERVICE
     @Autowired
     private FilmService filmService;
+
+    // REPOSITORY
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     // METHODS
     // INDEX
@@ -55,14 +60,19 @@ public class FilmController {
         // add a new empty object film
         model.addAttribute("film", new Film());
 
+        // categories
+        model.addAttribute("categories", categoryRepository.findAll());
+
         return "film/create-or-edit";
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute Film formFilm, BindingResult bindingResult) {
+    public String store(@Valid @ModelAttribute Film formFilm, BindingResult bindingResult, Model model) {
 
         // if validation errors are present
         if (bindingResult.hasErrors()) {
+            // categories
+            model.addAttribute("categories", categoryRepository.findAll());
             return "film/create-or-edit";
         }
 
@@ -80,6 +90,9 @@ public class FilmController {
 
         model.addAttribute("film", film);
 
+        // categories
+        model.addAttribute("categories", categoryRepository.findAll());
+
         // edit=true, for the form
         model.addAttribute("edit", true);
 
@@ -87,10 +100,12 @@ public class FilmController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@Valid @ModelAttribute Film formFilm, BindingResult bindingResult) {
+    public String update(@Valid @ModelAttribute Film formFilm, BindingResult bindingResult, Model model) {
 
         // if validation errors are present
         if (bindingResult.hasErrors()) {
+            // categories
+            model.addAttribute("categories", categoryRepository.findAll());
             return "film/create-or-edit";
         }
 

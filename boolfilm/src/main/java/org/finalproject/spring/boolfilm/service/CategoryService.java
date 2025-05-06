@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.finalproject.spring.boolfilm.model.Category;
+import org.finalproject.spring.boolfilm.model.Film;
 import org.finalproject.spring.boolfilm.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,14 +47,16 @@ public class CategoryService {
     // deleteById
     public void deleteById(Integer id) {
 
-        // find id
-        Optional<Category> optionalCategoryToDelete = categoryRepository.findById(id);
+        Category category = getById(id);
 
-        // if category doesn't exist, exeption 404
-        if (optionalCategoryToDelete.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
+        // remove category for each film
+        for (Film film : category.getFilm()) {
+            film.getCategories().remove(category);
         }
 
-        categoryRepository.delete(optionalCategoryToDelete.get());
+        // clear the movie category list (not obligatory, but safe)
+        category.getFilm().clear();
+
+        categoryRepository.delete(category);
     }
 }

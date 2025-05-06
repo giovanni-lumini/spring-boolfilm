@@ -74,7 +74,6 @@ public class Category {
                 " id='" + getId() + "'" +
                 ", name='" + getName() + "'" +
                 ", description='" + getDescription() + "'" +
-                ", film='" + getFilm() + "'" +
                 "}";
     }
 

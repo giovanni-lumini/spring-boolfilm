@@ -115,7 +115,6 @@ public class Film {
                 ", publicationDate='" + getPublicationDate() + "'" +
                 ", description='" + getDescription() + "'" +
                 ", image='" + getImage() + "'" +
-                ", categories='" + getCategories() + "'" +
                 "}";
     }
 }

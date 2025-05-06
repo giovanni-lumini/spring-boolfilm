@@ -22,6 +22,24 @@
                       <p><strong>Author: </strong>[[*{author}]]</p>
                       <p><strong>Publication date: </strong>[[*{publicationDate}]]</p>
                       <p><strong>Description: </strong>[[*{description}]]</p>
+                      <!-- categories -->
+                      <p><strong>Categories: </strong>[[*{description}]]</p>
+                            <!-- if category is present -->
+                            <div th:if="${film.getCategories().size() > 0}">
+                                <td>
+                                    <ul>
+                                        <li th:each="category : *{categories}">
+                                            [[${category.name}]]
+                                        </li>
+                                    </ul>
+                                </td>
+                            </div>
+                            <!-- if category isn't present -->
+                            <div th:unless="${film.getCategories().size() > 0}">
+                                <td>
+                                    <p>This film hasn't category</p>
+                                </td>
+                            </div>
                     </div>
                 </div>
             </div>
