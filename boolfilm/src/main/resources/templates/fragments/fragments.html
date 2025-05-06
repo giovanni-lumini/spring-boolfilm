@@ -12,7 +12,7 @@
 <body>
     <!-- header and navbar -->
     <th:block th:fragment="header">
-        <header class="text-center bg-dark text-white p-3 d-flex justify-content-between mb-5" style="height: 8rem; position: sticky; top: 0; z-index: 100;">
+        <header class="text-center bg-dark text-white p-3 d-flex justify-content-between mb-3" style="height: 8rem; position: sticky; top: 0; z-index: 100;">
             <div class="d-flex align-items-center">
                 <!-- img in public folder -->
                 <a th:href="@{/}">
@@ -33,11 +33,27 @@
                             <li class="nav-item">
                                 <a class="nav-link active text-white" th:href="@{/categories}">CATEGORIES</a>
                             </li>
+                            <!--logout -->
+                            <div>
+                                <a class="btn btn.sm btn-outline-danger" style="margin-left: 1rem;" href="/logout">Log out</a>
+                            </div>
                         </ul>
                     </div>
                 </div>
             </nav>
         </header>
+
+        <!-- user info -->
+        <div class="user-info text-center mb-5">
+            <span>
+                <strong>Logged user:</strong> <span sec:authentication="name"></span>
+            </span>
+            <span> - </span>
+            <span>
+                <strong>Role:</strong> <span sec:authentication="principal.authorities"></span>
+            </span>
+            <hr>
+        </div>
     </th:block>
 
     <!-- title -->

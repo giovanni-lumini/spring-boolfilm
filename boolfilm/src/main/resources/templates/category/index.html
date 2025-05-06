@@ -13,14 +13,14 @@
 
     <main class="container m-auto" style="overflow-y: auto;">
         <!-- create -->
-        <div class="border border-tertiary rounded shadow p-3 bg-body-tertiary rounded d-flex justify-content-between p-3 mb-3 m-auto" style="width: 50%;">
+        <div class="border border-tertiary rounded shadow p-3 bg-body-tertiary rounded d-flex justify-content-between p-3 mb-5 m-auto" style="width: 50%;" sec:authorize="hasAuthority('ADMIN')">
             <h3>Add a new category!</h3>
             <!-- button fragment --> 
             <div th:insert="~{fragments/fragments :: button('/categories/create', 'Add')}" class="text-center"></div>
         </div>
 
         <!-- table -->
-        <section class="row mt-5 d-flex justify-content-center">
+        <section class="row d-flex justify-content-center">
             <div class="col-6">
                 <!-- if categories exist -->
                 <table class="table" th:if="${categories.size() > 0}">
@@ -28,8 +28,8 @@
                         <tr>
                             <th>Category name</th>
                             <th></th>
-                            <th></th>
-                            <th></th>
+                            <th sec:authorize="hasAuthority('ADMIN')"></th>
+                            <th sec:authorize="hasAuthority('ADMIN')"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,11 +40,11 @@
                                 <a th:href="@{'/categories/' + *{id}}" class="btn btn-primary btn-sm">Show</a>
                             </td>
                             <!-- update -->
-                            <td class="text-center">
+                            <td class="text-center" sec:authorize="hasAuthority('ADMIN')">
                                 <a th:href="@{'/categories/edit/' + *{id}}" class="btn btn-warning btn-sm">Edit</a>
                             </td>
                             <!-- delete -->
-                            <td class="text-center">
+                            <td class="text-center" sec:authorize="hasAuthority('ADMIN')">
                                 <form th:action="@{'/categories/delete/' + *{id}}" method="post">
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                 </form>

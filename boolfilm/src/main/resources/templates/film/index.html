@@ -13,7 +13,7 @@
 
     <main class="container m-auto" style="overflow-y: auto;">
         <!-- create -->
-        <div class="border border-tertiary rounded shadow p-3 bg-body-tertiary rounded d-flex justify-content-between p-3 mb-3 m-auto" style="width: 50%;">
+        <div class="border border-tertiary rounded shadow p-3 bg-body-tertiary rounded d-flex justify-content-between p-3 mb-3 m-auto" style="width: 50%;" sec:authorize="hasAuthority('ADMIN')">
             <h3>Add a new film!</h3>
             <!-- button fragment -->
             <div th:insert="~{fragments/fragments :: button('/film/create', 'Add')}" class="text-center"></div>
@@ -32,10 +32,10 @@
                             <!-- show -->
                             <a th:href="@{/film/{id}(id=*{id})}" class="btn btn-sm btn-primary">Details</a>
                             <!-- update -->
-                            <a th:href="@{/film/edit/{id}(id=*{id})}" class="btn btn-sm btn-warning">Edit</a>
+                            <a th:href="@{/film/edit/{id}(id=*{id})}" class="btn btn-sm btn-warning" sec:authorize="hasAuthority('ADMIN')">Edit</a>
                             <!-- delete -->
                             <form th:action="@{/film/delete/{id}(id=*{id})}" method="post">
-                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                <button type="submit" class="btn btn-sm btn-outline-danger" sec:authorize="hasAuthority('ADMIN')">Delete</button>
                             </form>
                         </div>
                     </div>
