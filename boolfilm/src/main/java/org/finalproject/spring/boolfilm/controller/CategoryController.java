@@ -121,4 +121,20 @@ public class CategoryController {
     }
 
     // DELETE
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Integer id) {
+
+        // find id
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+
+        // if category doesn't exist, exeption 404
+        if (categoryOptional.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
+        }
+
+        categoryRepository.delete(categoryOptional.get());
+
+        return "redirect:/categories";
+    }
+
 }

@@ -53,6 +53,7 @@ public class FilmService {
         if (optionalFilmToDelete.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Film not found");
         }
+
         filmRepository.delete(optionalFilmToDelete.get());
     }
 }
