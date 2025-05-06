@@ -24,6 +24,11 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
+    // findById
+    public Optional<Category> findById(Integer id) {
+        return categoryRepository.findById(id);
+    }
+
     // getById
     public Category getById(Integer id) {
 

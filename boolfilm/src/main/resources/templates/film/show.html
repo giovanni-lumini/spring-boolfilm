@@ -19,6 +19,7 @@
                     <img th:src="*{image}" class="card-img-top" alt="..." style="height: 30rem; width: 20rem; object-fit: cover;">
                     <div class="card-body" style="margin-left: 3rem;">
                       <h2 class="card-title mb-3" th:text="*{title}"></h2>
+                      <p><strong>Id: </strong>[[*{id}]]</p>
                       <p><strong>Author: </strong>[[*{author}]]</p>
                       <p><strong>Publication date: </strong>[[*{publicationDate}]]</p>
                       <p><strong>Description: </strong>[[*{description}]]</p>
