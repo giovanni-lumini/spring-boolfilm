@@ -3,10 +3,10 @@ package org.finalproject.spring.boolfilm.model;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,7 +20,6 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "film")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Film {
 
     // VARIABLES
@@ -44,8 +43,9 @@ public class Film {
     private String image;
 
     // MANY TO MANY
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "category_film", joinColumns = @JoinColumn(name = "film_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JsonManagedReference
     private List<Category> categories;
 
     // GETTERS AND SETTERS
